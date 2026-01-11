@@ -1,0 +1,175 @@
+version: "3.9"
+
+services:
+  api-gateway:
+    build: ../services/api-gateway
+    container_name: quizify-api-gateway
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - SKIP_AUTH=true
+      - AUTH_SERVICE_URL=http://auth-service:8081
+      - EXAM_DEFINITION_SERVICE_URL=http://exam-definition-service:8082
+      - EXAM_SESSION_SERVICE_URL=http://exam-session-service:8083
+      - QUIZ_ENGINE_SERVICE_URL=http://quiz-engine-service:8084
+      - PROCTORING_SERVICE_URL=http://proctoring-service:8085
+      - VIOLATION_AUDIT_SERVICE_URL=http://violation-audit-service:8086
+      - RESULT_SERVICE_URL=http://result-service:8087
+    ports:
+      - "8080:8080"
+    depends_on:
+      - auth-service
+      - exam-definition-service
+      - exam-session-service
+      - quiz-engine-service
+      - proctoring-service
+      - violation-audit-service
+      - result-service
+    secrets:
+      - jwt_public_key
+
+  auth-service:
+    build: ../services/auth-service-java
+    container_name: quizify-auth-service
+    environment:
+      - PORT=8081
+      - JWT_DEV_SECRET=dev-secret-change-in-prod
+    ports:
+      - "8081:8081"
+
+  exam-definition-service:
+    build: ../services/exam-definition-service
+    container_name: quizify-exam-definition-service
+    environment:
+      - NODE_ENV=production
+      - PORT=8082
+    ports:
+      - "8082:8082"
+
+  exam-session-service:
+    build: ../services/exam-session-service
+    container_name: quizify-exam-session-service
+    environment:
+      - NODE_ENV=production
+      - PORT=8083
+    ports:
+      - "8083:8083"
+
+  quiz-engine-service:
+    build: ../services/quiz-engine-service
+    container_name: quizify-quiz-engine-service
+    environment:
+      - NODE_ENV=production
+      - PORT=8084
+    ports:
+      - "8084:8084"
+
+  proctoring-service:
+    build: ../services/proctoring-service
+    container_name: quizify-proctoring-service
+    environment:
+      - NODE_ENV=production
+      - PORT=8085
+    ports:
+      - "8085:8085"
+
+  violation-audit-service:
+    build: ../services/violation-audit-service
+    container_name: quizify-violation-audit-service
+    environment:
+      - NODE_ENV=production
+      - PORT=8086
+    ports:
+      - "8086:8086"
+
+  result-service:
+    build: ../services/result-service
+    container_name: quizify-result-service
+    environment:
+      - NODE_ENV=production
+      - PORT=8087
+    ports:
+      - "8087:8087"
+
+  identity-service:
+    build: ../services/identity-service
+    container_name: quizify-identity-service
+    environment:
+      - NODE_ENV=production
+      - PORT=8090
+    ports:
+      - "8090:8090"
+
+  admin-moderation-service:
+    build: ../services/admin-moderation-service
+    container_name: quizify-admin-moderation-service
+    environment:
+      - NODE_ENV=production
+      - PORT=8091
+    ports:
+      - "8091:8091"
+
+  analytics-service:
+    build: ../services/analytics-service
+    container_name: quizify-analytics-service
+    environment:
+      - NODE_ENV=production
+      - PORT=8092
+    ports:
+      - "8092:8092"
+
+  notification-service:
+    build: ../services/notification-service
+    container_name: quizify-notification-service
+    environment:
+      - NODE_ENV=production
+      - PORT=8093
+    ports:
+      - "8093:8093"
+
+  ocr-service:
+    build: ../services/ocr-service
+    container_name: quizify-ocr-service
+    environment:
+      - NODE_ENV=production
+      - PORT=8094
+    ports:
+      - "8094:8094"
+
+  pdf-ingestion-service:
+    build: ../services/pdf-ingestion-service
+    container_name: quizify-pdf-ingestion-service
+    environment:
+      - NODE_ENV=production
+      - PORT=8095
+    ports:
+      - "8095:8095"
+
+  question-ai-service:
+    build: ../services/question-ai-service
+    container_name: quizify-question-ai-service
+    environment:
+      - NODE_ENV=production
+      - PORT=8096
+    ports:
+      - "8096:8096"
+
+  question-bank-service:
+    build: ../services/question-bank-service
+    container_name: quizify-question-bank-service
+    environment:
+      - NODE_ENV=production
+      - PORT=8097
+    ports:
+      - "8097:8097"
+
+  user-profile-service:
+    build: ../services/user-profile-service
+    container_name: quizify-user-profile-service
+    environment:
+      - NODE_ENV=production
+      - PORT=8098
+    ports:
+      - "8098:8098"
+
+

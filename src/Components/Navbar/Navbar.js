@@ -30,16 +30,34 @@ const Navbar = () => {
 
         {/* Desktop Navigation Links */}
         <div className="hidden md:flex items-center space-x-6">
-          {["Home", "Why Quizify", "About Us", "Contact Us"].map((item, index) => (
-            <Link
-              key={index}
-              to={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
-              className="text-gray-800 hover:text-blue-500 font-medium relative group transition duration-300"
-            >
-              {item}
-              <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-          ))}
+          <Link
+            to="/home"
+            className="text-gray-800 hover:text-blue-500 font-medium relative group transition duration-300"
+          >
+            Home
+            <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
+          </Link>
+          <Link
+            to="/exams"
+            className="text-gray-800 hover:text-blue-500 font-medium relative group transition duration-300"
+          >
+            Exams
+            <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
+          </Link>
+          <Link
+            to="/why"
+            className="text-gray-800 hover:text-blue-500 font-medium relative group transition duration-300"
+          >
+            Why Quizify
+            <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
+          </Link>
+          <Link
+            to="/contact"
+            className="text-gray-800 hover:text-blue-500 font-medium relative group transition duration-300"
+          >
+            Contact
+            <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
+          </Link>
         </div>
 
         {/* Desktop Buttons */}
@@ -61,7 +79,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Sidebar Navigation */}
-      <div
+        <div
         ref={sideNavRef}
         className={`fixed top-0 right-0 w-4/5 sm:w-3/5 md:w-1/3 h-full bg-white shadow-lg transform translate-x-full transition-all ease-in-out`}
         style={{ backdropFilter: "blur(15px)" }} // Glassmorphism effect
@@ -73,23 +91,41 @@ const Navbar = () => {
 
         {/* Sidebar Content */}
         <div className="flex flex-col items-center mt-20 space-y-6">
-          {["Home", "Why Quizify", "About Us", "Contact Us"].map((item, index) => (
-            <Link
-              key={index}
-              to={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
-              className="text-lg text-gray-800 font-medium hover:text-blue-500 transition duration-300"
-              onClick={() => setMenuOpen(false)} // Close on click
-            >
-              {item}
-            </Link>
-          ))}
+          <Link
+            to="/home"
+            className="text-lg text-gray-800 font-medium hover:text-blue-500 transition duration-300"
+            onClick={() => setMenuOpen(false)}
+          >
+            Home
+          </Link>
+          <Link
+            to="/exams"
+            className="text-lg text-gray-800 font-medium hover:text-blue-500 transition duration-300"
+            onClick={() => setMenuOpen(false)}
+          >
+            Exams
+          </Link>
+          <Link
+            to="/why"
+            className="text-lg text-gray-800 font-medium hover:text-blue-500 transition duration-300"
+            onClick={() => setMenuOpen(false)}
+          >
+            Why Quizify
+          </Link>
+          <Link
+            to="/contact"
+            className="text-lg text-gray-800 font-medium hover:text-blue-500 transition duration-300"
+            onClick={() => setMenuOpen(false)}
+          >
+            Contact
+          </Link>
 
           {/* Buttons in Sidebar */}
           <div className="mt-4 flex flex-col space-y-4">
-            <Link to="/login" className="text-gray-800 text-center hover:text-blue-500 font-medium transition duration-300">
+            <Link to="/login" className="text-gray-800 text-center hover:text-blue-500 font-medium transition duration-300" onClick={() => setMenuOpen(false)}>
               Login
             </Link>
-            <Link to="/signup" className="px-5 py-2 rounded-full border-2 border-blue-500 text-blue-500 font-medium text-center transition duration-300 hover:bg-blue-500 hover:text-white">
+            <Link to="/signup" className="px-5 py-2 rounded-full border-2 border-blue-500 text-blue-500 font-medium text-center transition duration-300 hover:bg-blue-500 hover:text-white" onClick={() => setMenuOpen(false)}>
               Sign Up
             </Link>
           </div>
