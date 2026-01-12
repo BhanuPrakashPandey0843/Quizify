@@ -1,4 +1,6 @@
 import React from "react";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { Link } from "react-router-dom";
 import {
   RiFacebookFill,
   RiInstagramLine,
@@ -32,19 +34,18 @@ const Footer = () => {
           <div>
             <h3 className="font-bold text-xl">Quick Links</h3>
             <ul className="mt-3 space-y-2 text-base">
-              <li><a href="#" className="hover:underline">Home</a></li>
-              <li><a href="#" className="hover:underline">About us</a></li>
-              <li><a href="#" className="hover:underline">FAQ's</a></li>
-              <li><a href="#" className="hover:underline">Contact us</a></li>
+              <li><Link to="/" className="hover:underline">Home</Link></li>
+              <li><Link to="/why" className="hover:underline">About us</Link></li>
+              <li><Link to="/contact" className="hover:underline">Contact us</Link></li>
             </ul>
           </div>
           <div>
             <h3 className="font-bold text-xl">Quiz Categories</h3>
             <ul className="mt-3 space-y-2 text-base">
-              <li><a href="#" className="hover:underline">Science</a></li>
-              <li><a href="#" className="hover:underline">Algebra</a></li>
-              <li><a href="#" className="hover:underline">Chemistry</a></li>
-              <li><a href="#" className="hover:underline">Biology</a></li>
+              <li><Link to="/exams" className="hover:underline">Science</Link></li>
+              <li><Link to="/exams" className="hover:underline">Algebra</Link></li>
+              <li><Link to="/exams" className="hover:underline">Chemistry</Link></li>
+              <li><Link to="/exams" className="hover:underline">Biology</Link></li>
             </ul>
           </div>
         </div>

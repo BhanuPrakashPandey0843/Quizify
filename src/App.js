@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Lenis from "lenis";
 import "./index.css";
 import LandingPage from "./Pages/LandingPage";
 import SignupPage from "./Pages/SignupPage";

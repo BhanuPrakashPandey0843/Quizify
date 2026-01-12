@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config/config");
 
-const PUBLIC_ROUTES = ["/api/auth/login", "/api/auth/refresh", "/api/auth/health"];
+const PUBLIC_ROUTES = ["/api/auth/login", "/api/auth/register", "/api/auth/refresh", "/api/auth/health"];
 
 function authMiddleware(req, res, next) {
   if (config.skipAuth) {

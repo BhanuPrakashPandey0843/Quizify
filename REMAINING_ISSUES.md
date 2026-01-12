@@ -1,15 +1,21 @@
-# Remaining Issues & Suggestions
+# Remaining Issues & Roadmap
 
-## ⚠️ Critical Issues
-1.  **In-Memory Data**: `quiz-engine-service` and others use in-memory variables. This data will be lost on restart. **Fix**: Connect to a database (MongoDB recommended).
-2.  **Unrefactored Services**: Several services (e.g., `exam-definition`, `result-service`) still use the old monolithic `index.js` structure. **Fix**: Refactor them using the pattern established in `auth-service`.
-3.  **Hardcoded URLs**: `api-gateway` has fallback URLs. Ensure `docker-compose` or environment variables are correctly set for production.
+## 🐛 Known Issues / Limitations
+1. **Mock Data in Services:**
+   - `exam-definition-service` and `quiz-engine-service` currently serve in-memory mock data. For production, integrate with a real database (MongoDB/PostgreSQL).
+2. **Proctoring Enforcement:**
+   - The frontend sends proctoring events (Tab Blur, Visibility Change), but the backend logic to *penalize* or *auto-submit* based on these is basic.
+3. **Session Persistence:**
+   - `exam-session-service` uses an in-memory Map. Restarting the service wipes active sessions. Needs Redis/Database.
 
-## 💡 UI/UX Suggestions
-1.  **Loading States**: Add a global Skeleton Loader or Spinner when fetching data from the backend.
-2.  **Toast Notifications**: Replace `alert()` or console logs with a Toast library (e.g., `react-hot-toast`) for user feedback on Login/Signup.
-3.  **Dashboard Polish**: The `ExamDashboardPage` should be reviewed to ensure it matches the high quality of the Landing Page.
+## 🛠 Future Improvements
+- **Database Integration:** Connect all microservices to a persistent database.
+- **Admin Portal:** Create a frontend interface for Admins to CRUD exams and questions.
+- **Real-time Analytics:** Use WebSockets for live proctoring monitoring.
+- **Result Visualization:** Add charts/graphs for performance analysis in `ResultPage.js`.
+- **Unit Testing:** Add Jest/Supertest coverage for all backend routes.
 
-## 🔧 Infrastructure
-1.  **Docker Compose**: The `infra/docker-compose.yml` should be verified to include all new services and environment variables.
-2.  **CI/CD**: Set up GitHub Actions for automated testing and linting.
+## 📝 Notes for Developers
+- Ensure all services are running before starting the frontend.
+- Use `api.js` for all frontend requests to ensure Auth headers are attached.
+- Check `api-gateway` logs for routing issues.

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const API_BASE = "http://localhost:8080/api";
+import api from "../services/api";
 
 const ExamDashboardPage = () => {
   const [exams, setExams] = useState([]);
@@ -12,9 +11,8 @@ const ExamDashboardPage = () => {
   useEffect(() => {
     const fetchExams = async () => {
       try {
-        const res = await fetch(`${API_BASE}/exams`);
-        const data = await res.json();
-        setExams(data);
+        const res = await api.get("/exams");
+        setExams(res.data);
       } catch (e) {
         setError("Failed to load exams");
       } finally {

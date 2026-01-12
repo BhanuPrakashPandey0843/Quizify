@@ -1,7 +1,35 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import { authService } from '../../services/api';
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    try {
+      await authService.register(formData.username, formData.email, formData.password);
+      navigate('/exams');
+    } catch (err) {
+      setError(err.response?.data?.error || 'Registration failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="bg-white min-h-screen flex items-center justify-center py-20 font-sans">
       <div className="max-w-6xl w-full mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-12">
@@ -20,12 +48,17 @@ const Signup = () => {
               Sign up for an account
             </h2>
             
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              {error && <div className="text-red-500 text-sm text-center">{error}</div>}
               <div className="relative">
                 <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
                 <input 
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
                   placeholder="Your Name" 
                   type="text" 
+                  required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
                 />
               </div>
@@ -33,8 +66,12 @@ const Signup = () => {
               <div className="relative">
                 <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                 <input 
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="you@example.com" 
                   type="email" 
+                  required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
                 />
               </div>
@@ -42,17 +79,22 @@ const Signup = () => {
               <div className="relative">
                 <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
                 <input 
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
                   placeholder="••••••••" 
                   type="password" 
+                  required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
                 />
               </div>
 
               <button 
-                type="button"
-                className="w-full bg-primary text-white py-3 rounded-full text-lg font-bold shadow-lg hover:bg-blue-900 transition transform hover:scale-105"
+                type="submit"
+                disabled={loading}
+                className={`w-full bg-primary text-white py-3 rounded-full text-lg font-bold shadow-lg hover:bg-blue-900 transition transform hover:scale-105 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
-                Sign Up
+                {loading ? 'Signing Up...' : 'Sign Up'}
               </button>
             </form>
 
